@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="./js/css/index.css">
+  <title>ATM App</title>
+  <script type="text/javascript">
+    var accountBalance = 5000; // Initial account balance
+
+    function insertCard() {
+      var insertCardPrompt = prompt("Please insert your ATM card by typing 'Yes':");
+
+      if (insertCardPrompt.toLowerCase() !== "yes") {
+        alert("ATM card not inserted. Transaction canceled.");
+        return false;
+      }
+
+      return true;
+    }
+
+    function transferMoney() {
+      if (!insertCard()) {
+        return;
+      }
+
+      // Step 1: Get user's name
+      var userName = prompt("Please enter your name:");
+
+      // Step 2: Confirm account details
+      var accountDetailsMessage =
+        "Please confirm your account details:\n\n" +
+        "Name: " +
+        userName;
+
+      var isAccountDetailsConfirmed = confirm(accountDetailsMessage);
+
+      // Step 3: Verify password
+      var password = prompt("Enter your password:");
+      if (password !== "1111") {
+        alert("Incorrect password. Transfer canceled.");
+        return;
+      }
+
+      // Step 4: Proceed with transfer
+      if (isAccountDetailsConfirmed) {
+        var recipientName = prompt("Enter the recipient's name:");
+        var recipientBank = prompt("Enter the recipient's bank:");
+        var recipientAccountNumber = prompt("Enter the recipient's account number:");
+        var transferAmount = parseFloat(prompt("Enter the amount to transfer:"));
+
+        if (isNaN(transferAmount) || transferAmount <= 0) {
+          alert("Invalid transfer amount.");
+          return;
+        }
+
+        if (transferAmount > accountBalance) {
+          alert("Insufficient funds. Transfer canceled.");
+          return;
+        }
+
+        // Perform the transfer
+        accountBalance -= transferAmount;
+
+        var transferMessage =
+          "Transfer successful!\n\n" +
+          "Recipient: " +
+          recipientName +
+          "\nRecipient's Bank: " +
+          recipientBank +
+          "\nRecipient's Account Number: " +
+          recipientAccountNumber +
+          "\nTransfer Amount: $" +
+          transferAmount.toFixed(2) +
+          "\nAccount Balance: $" +
+          accountBalance.toFixed(2);
+
+        alert(transferMessage);
+      } else {
+        alert("Account details not confirmed. Transfer canceled.");
+      }
+    }
+
+    function depositMoney() {
+      if (!insertCard()) {
+        return;
+      }
+
+      // Step 1: Get user's name
+      var userName = prompt("Please enter your name:");
+
+      // Step 2: Confirm account details
+      var accountDetailsMessage =
+        "Please confirm your account details:\n\n" +
+        "Name: " +
+        userName;
+
+      var isAccountDetailsConfirmed = confirm(accountDetailsMessage);
+
+      // Step 3: Verify password
+      var password = prompt("Enter your password:");
+      if (password !== "1111") {
+        alert("Incorrect password. Deposit canceled.");
+        return;
+      }
+
+      // Step 4: Proceed with deposit
+      if (isAccountDetailsConfirmed) {
+        var depositorName = prompt("Enter your name:");
+        var depositorAccountNumber = prompt("Enter your account number:");
+        var depositAmount = parseFloat(prompt("Enter the amount to deposit:"));
+
+        if (isNaN(depositAmount) || depositAmount <= 0) {
+          alert("Invalid deposit amount.");
+          return;
+        }
+
+        accountBalance += depositAmount;
+
+        var balanceMessage =
+          "Deposit successful!\n\n" +
+          "Depositor: " +
+          depositorName +
+          "\nDepositor's Account Number: " +
+          depositorAccountNumber +
+          "\nAccount Balance: $" +
+          accountBalance.toFixed(2);
+
+        alert(balanceMessage);
+      } else {
+        alert("Account details not confirmed. Deposit canceled.");
+      }
+    }
+
+    function withdrawMoney() {
+      if (!insertCard()) {
+        return;
+      }
+
+      // Step 1: Get user's name
+      var userName = prompt("Please enter your name:");
+
+      // Step 2: Confirm account details
+      var accountDetailsMessage =
+        "Please confirm your account details:\n\n" +
+        "Name: " +
+        userName;
+
+      var isAccountDetailsConfirmed = confirm(accountDetailsMessage);
+
+      // Step 3: Verify password
+      var password = prompt("Enter your password:");
+      if (password !== "1111") {
+        alert("Incorrect password. Withdrawal canceled.");
+        return;
+      }
+
+      // Step 4: Proceed with withdrawal
+      if (isAccountDetailsConfirmed) {
+        var withdrawalAmount = parseFloat(prompt("Enter the amount to withdraw:"));
+
+        if (isNaN(withdrawalAmount) || withdrawalAmount <= 0) {
+          alert("Invalid withdrawal amount.");
+          return;
+        }
+
+        if (withdrawalAmount > accountBalance) {
+          alert("Insufficient funds. Withdrawal canceled.");
+          return;
+        }
+
+        accountBalance -= withdrawalAmount;
+
+        var balanceMessage =
+          "Withdrawal successful!\n\n" +
+          "Withdrawal Amount: $" +
+          withdrawalAmount.toFixed(2) +
+          "\nAccount Balance: $" +
+          accountBalance.toFixed(2);
+
+        alert(balanceMessage);
+      } else {
+        alert("Account details not confirmed. Withdrawal canceled.");
+      }
+    }
+  </script>
+</head>
+<body>
+  <h1>ATM App by Benjamin (Youthrive Student)</h1>
+  <button onclick="transferMoney()">Transfer Money</button>
+  <button onclick="depositMoney()">Deposit</button>
+  <button onclick="withdrawMoney()">Withdraw</button>
+  <div>
+      <h2>When prompted for Password enter 1111</h2>
+  </div>
+</body>
+</html>
